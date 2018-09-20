@@ -94,10 +94,16 @@ namespace ToDoList.Models
       cmd.Parameters.Add(parameterId);
 
       MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
-      rdr.Read();
 
-      string categoryName = rdr.GetString(1);
-      int categoryId = rdr.GetInt32(0);
+      string categoryName = "";
+      int categoryId = 0;
+
+      if(rdr.Read())
+      {
+        categoryName = rdr.GetString(1);
+        categoryId = rdr.GetInt32(0);
+      }
+
       Category newCategory = new Category(categoryName, categoryId);
 
       conn.Close();

@@ -1,8 +1,8 @@
 <h1>To Do List</h1>
 <ul>
-  @foreach (var item in Model)
+  @foreach (var item in @Model["categoryItems"])
   {
     <li><a href="/categories/@item.GetCategoryId()/items/@item.GetId()">@item.GetDescription()</a> @item.GetDueDate() | <a href="/items/@item.GetId()/update">Edit</a></li>
   }
 </ul>
-<a href="/categories/{categoryId}/items/new">Add a new item.</a>
+<a href="/categories/@Model["category"].Id/items/new">Add a new item.</a>

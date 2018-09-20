@@ -12,7 +12,10 @@ namespace ToDoList.Controllers
     {
       Category category = Category.Find(categoryId);
       List<Item> categoryItems = category.GetItems();
-      return View(categoryItems);
+      Dictionary <string, object> model = new Dictionary <string, object> ();
+      model.Add("categoryItems", categoryItems);
+      model.Add("category", category);
+      return View(model);
     }
     [HttpGet("/categories/{categoryId}/items/new")]
     public ActionResult CreateForm(int categoryId)
@@ -52,7 +55,7 @@ namespace ToDoList.Controllers
       newItem.Save();
       // model.Add("item", newItem);
       // model.Add("category", foundCategory);
-      return RedirectToAction("Index", new {categoryId = categoryId});
+      return RedirectToAction("Index", new {categoryId = newItem.GetCategoryId()});
     }
     [HttpGet("/items/{itemId}/update")]
     public ActionResult UpdateForm(int itemId)
